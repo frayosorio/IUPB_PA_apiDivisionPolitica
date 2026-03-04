@@ -12,3 +12,5 @@ class PaisControlador {
         }
     }
 }
+
+module.exports = new PaisControlador();

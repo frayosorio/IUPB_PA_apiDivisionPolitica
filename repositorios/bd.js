@@ -4,6 +4,7 @@ const { MongoClient } = require('mongodb');
 class ConexionBD {
     constructor() {
         this.url = configBD.url;
+        console.log(this.url);
         this.cliente = new MongoClient(this.url);
         this.db = null;
         this.nombreBD = configBD.BASEDATOS;
@@ -37,3 +38,4 @@ class ConexionBD {
 }
 
 
+module.exports = new ConexionBD();

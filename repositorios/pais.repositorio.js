@@ -1,3 +1,5 @@
+const bd = require("./bd");
+
 class PaisRepositorio {
     constructor() {
         this.collectionName = 'paises';
@@ -23,7 +25,6 @@ class PaisRepositorio {
         console.error(`Error en repositorio PAIS en el método ${metodo}: ${error.message}`);
         throw error;
     }
-
-
-
 }
+
+module.exports = new PaisRepositorio();
