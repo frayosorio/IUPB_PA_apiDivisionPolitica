@@ -1,6 +1,7 @@
 const express = require("express")
 const bd = require("./repositorios/bd")
 const paisRutas = require("./rutas/pais.rutas")
+const regionRutas = require('./rutas/region.rutas');
 const swaggerConfig = require("./configuracion/swagger")
 
 
@@ -9,6 +10,7 @@ class App {
         this.app = express()
         this.puerto = process.env.PORT || 3030
         this._conectarBaseDatos();
+        this._configuracionMiddlewares();
         this._configurarRutas();
         this._configurarDocumentacion();
     }
@@ -27,8 +29,14 @@ class App {
         this.app.get('/', (req, res) => res.json({ estado: "Online" }));
 
         this.app.use("/api/paises", paisRutas);
+        this.app.use("/api/paises", regionRutas);
 
     }
+
+    _configuracionMiddlewares() {
+        this.app.use(express.json());
+    }
+
 
     _configurarDocumentacion() {
         swaggerConfig.configurar(this.app);

@@ -21,6 +21,49 @@ class PaisRepositorio {
         }
     }
 
+    async agregar(pais) {
+        try {
+            await this._collection.insertOne({
+                id: pais.id,
+                continente: pais.continente,
+                tipoRegion: pais.tipoRegion,
+                codigoAlfa2: pais.codigoAlfa2,
+                codigoAlfa3: pais.codigoAlfa3,
+                nombre: pais.nombre
+            });
+            return pais;
+        }
+        catch (error) {
+            this._handleError('agregar', error);
+        }
+    }
+
+    async modificar(pais) {
+        try {
+            const filtro = { id: pais.id };
+
+            const resultado = await this._collection.updateOne(filtro,
+                { $set: { ...pais } }
+            );
+            if (resultado.modifiedCount === 0) throw new Error("País no encontrado");
+            return pais;
+        }
+        catch (error) {
+            this._handleError('modificar', error);
+        }
+    }
+
+    async eliminar(idPais) {
+        try {
+            const resultado = await this._collection.deleteOne({ id: parseInt(idPais) });
+            return resultado.deletedCount > 0;
+            return pais;
+        }
+        catch (error) {
+            this._handleError('eliminar', error);
+        }
+    }
+
     _handleError(metodo, error) {
         console.error(`Error en repositorio PAIS en el método ${metodo}: ${error.message}`);
         throw error;
