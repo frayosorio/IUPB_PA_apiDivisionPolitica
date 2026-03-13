@@ -70,4 +70,5 @@ class PaisRepositorio {
     }
 }
 
+// Exportamos la instancia (Singleton)
 module.exports = new PaisRepositorio();
